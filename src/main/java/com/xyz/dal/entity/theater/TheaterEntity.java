@@ -40,7 +40,7 @@ public class TheaterEntity implements Serializable {
 	private String city;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "theater", cascade = CascadeType.ALL)
-	private List<ScreenEntity> screens;
+	private List<TheaterScreenEntity> screens;
 	
 	public Long getId() {
 		return theaterId;

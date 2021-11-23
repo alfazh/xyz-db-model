@@ -12,7 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.xyz.dal.entity.theater.ScreenEntity;
+import com.xyz.dal.entity.theater.TheaterScreenEntity;
 
 @Entity
 @Table(name = "show_schedule")
@@ -40,7 +40,7 @@ public class ShowScheduleEntity implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "screenId")
-	private ScreenEntity screen;
+	private TheaterScreenEntity screen;
 
 	public Long getShowScheduleId() {
 		return showScheduleId;
@@ -66,11 +66,11 @@ public class ShowScheduleEntity implements Serializable {
 		this.time = time;
 	}
 
-	public ScreenEntity getScreen() {
+	public TheaterScreenEntity getScreen() {
 		return screen;
 	}
 
-	public void setScreen(ScreenEntity screen) {
+	public void setScreen(TheaterScreenEntity screen) {
 		this.screen = screen;
 	}
 

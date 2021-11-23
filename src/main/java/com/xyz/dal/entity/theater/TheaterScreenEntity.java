@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "theater_screen")
-public class ScreenEntity {
+public class TheaterScreenEntity {
 
 	@Id
 	@GeneratedValue
