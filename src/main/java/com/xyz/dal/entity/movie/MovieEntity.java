@@ -50,7 +50,7 @@ public class MovieEntity implements Serializable {
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "movie_format", nullable = false)
-	private MovieFormat movieformat;
+	private MovieFormat movieFormat;
 
 	public Long getMovieId() {
 		return movieId;
@@ -84,8 +84,8 @@ public class MovieEntity implements Serializable {
 		return releaseDate;
 	}
 
-	public MovieFormat getMovieformat() {
-		return movieformat;
+	public MovieFormat getMovieFormat() {
+		return movieFormat;
 	}
 
 	public void setMovieId(Long movieId) {
@@ -120,8 +120,8 @@ public class MovieEntity implements Serializable {
 		this.releaseDate = releaseDate;
 	}
 
-	public void setMovieformat(MovieFormat movieformat) {
-		this.movieformat = movieformat;
+	public void setMovieFormat(MovieFormat movieformat) {
+		this.movieFormat = movieformat;
 	}
 
 	@Override

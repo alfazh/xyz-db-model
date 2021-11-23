@@ -24,7 +24,7 @@ public class TheaterEntity implements Serializable {
 
 	@Id
 	@GeneratedValue
-	@Column(name = "theater_d", unique = true, updatable = false, nullable = false)
+	@Column(name = "theater_id", unique = true, updatable = false, nullable = false)
 	private Long theaterId;
 
 	@Column(name = "name", nullable = false)

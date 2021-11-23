@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "screen")
+@Table(name = "theater_screen")
 public class ScreenEntity {
 
 	@Id
@@ -22,7 +22,7 @@ public class ScreenEntity {
 	@JoinColumn(name = "theaterId", nullable = false)
 	private TheaterEntity theater;
 
-	@Column(name = "name", unique = true, updatable = false, nullable = false)
+	@Column(name = "name", updatable = true, nullable = false)
 	private String name;
 
 	public Integer getScreenId() {
