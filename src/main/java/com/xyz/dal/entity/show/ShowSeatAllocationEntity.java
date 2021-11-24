@@ -27,7 +27,7 @@ public class ShowSeatAllocationEntity implements Serializable {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "showScheduleId")
-	private ShowScheduleEntity showSchedule;
+	private TheaterShowEntity show;
 
 	@Column(name = "row", updatable = false, nullable = false)
 	private String row;
@@ -38,21 +38,25 @@ public class ShowSeatAllocationEntity implements Serializable {
 	@Column(name = "avail", updatable = false, nullable = false)
 	private Boolean available;
 
-	public static ShowSeatAllocationEntity of(ShowScheduleEntity scheduleEntity, String row, int seatNum) {
+	public static ShowSeatAllocationEntity of(TheaterShowEntity showEntity, String row, int seatNum) {
 		ShowSeatAllocationEntity entity = new ShowSeatAllocationEntity();
-		entity.setShowSchedule(scheduleEntity);
+		entity.setShow(showEntity);
 		entity.setRow(row);
 		entity.setSeatNum(seatNum);
 		entity.setAvailable(Boolean.TRUE);
 		return entity;
 	}
-	
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	public Long getShowSeatAllocationId() {
 		return showSeatAllocationId;
 	}
 
-	public ShowScheduleEntity getShowSchedule() {
-		return showSchedule;
+	public TheaterShowEntity getShow() {
+		return show;
 	}
 
 	public String getRow() {
@@ -71,8 +75,8 @@ public class ShowSeatAllocationEntity implements Serializable {
 		this.showSeatAllocationId = showSeatAllocationId;
 	}
 
-	public void setShowSchedule(ShowScheduleEntity showSchedule) {
-		this.showSchedule = showSchedule;
+	public void setShow(TheaterShowEntity show) {
+		this.show = show;
 	}
 
 	public void setRow(String row) {
@@ -87,5 +91,4 @@ public class ShowSeatAllocationEntity implements Serializable {
 		this.available = available;
 	}
 
-	
 }

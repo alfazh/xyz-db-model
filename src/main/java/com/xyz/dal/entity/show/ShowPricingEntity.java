@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -13,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "show_pricing")
+@Table(name = "theater_show_pricing")
 public class ShowPricingEntity implements Serializable {
 
 	/**
@@ -26,9 +25,9 @@ public class ShowPricingEntity implements Serializable {
 	@Column(name = "show_pricing_id", unique = true, updatable = false, nullable = false)
 	private Long showPricingId;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "showScheduleId")
-	private ShowScheduleEntity showSchedule;
+	@ManyToOne
+	@JoinColumn(name = "showId")
+	private TheaterShowEntity show;
 
 	@Column(name = "seat_class", updatable = false, nullable = false)
 	private String seatClass;
@@ -39,12 +38,16 @@ public class ShowPricingEntity implements Serializable {
 	@Column(name = "price", updatable = false, nullable = false)
 	private BigDecimal price;
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	public Long getShowPricingId() {
 		return showPricingId;
 	}
 
-	public ShowScheduleEntity getShowSchedule() {
-		return showSchedule;
+	public TheaterShowEntity getShow() {
+		return show;
 	}
 
 	public String getSeatClass() {
@@ -63,8 +66,8 @@ public class ShowPricingEntity implements Serializable {
 		this.showPricingId = showPricingId;
 	}
 
-	public void setShowSchedule(ShowScheduleEntity showSchedule) {
-		this.showSchedule = showSchedule;
+	public void setShow(TheaterShowEntity show) {
+		this.show = show;
 	}
 
 	public void setSeatClass(String seatClass) {
@@ -78,5 +81,6 @@ public class ShowPricingEntity implements Serializable {
 	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
-
+	
+	
 }

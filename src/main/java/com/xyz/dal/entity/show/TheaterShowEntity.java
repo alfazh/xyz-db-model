@@ -1,7 +1,9 @@
 package com.xyz.dal.entity.show;
 
 import java.io.Serializable;
+import java.time.LocalTime;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,64 +17,93 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import com.xyz.dal.entity.movie.MovieEntity;
-import com.xyz.dal.entity.theater.TheaterEntity;
+import com.xyz.dal.entity.theater.TheaterScreenEntity;
 
 @Entity
-@Table(name = "theater_shows", uniqueConstraints = { @UniqueConstraint(columnNames = { "theaterid", "movieid" }) })
+@Table(name = "theater_show", uniqueConstraints = {
+		@UniqueConstraint(columnNames = { "showscheduleid", "screenid", "show_time", }) })
+
 public class TheaterShowEntity implements Serializable {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -8249430834653676293L;
+	private static final long serialVersionUID = 7097903902322342138L;
 
 	@Id
 	@GeneratedValue
-	@Column(name = "theater_show_id", unique = true, updatable = false, nullable = false)
-	private Long theaterShowId;
+	@Column(name = "show_id", unique = true, updatable = false, nullable = false)
+	private Long showId;
 
 	@ManyToOne
-	@JoinColumn(name = "theaterId")
-	private TheaterEntity theater;
+	@JoinColumn(name = "showScheduleId")
+	private TheaterShowScheduleEntity showSchedule;
+
+	@Column(name = "show_time", updatable = false, nullable = false)
+	private LocalTime time;
 
 	@ManyToOne
-	@JoinColumn(name = "movieId")
-	private MovieEntity movie;
+	@JoinColumn(name = "screenId")
+	private TheaterScreenEntity screen;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "show", cascade = CascadeType.ALL)
-	private List<ShowScheduleEntity> showSchedule;
+	private List<ShowPricingEntity> showPricing;
+	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "show", cascade = CascadeType.ALL)
+	private Set<ShowSeatAllocationEntity> showSeatAllocation;
 
-	public Long getTheaterShowId() {
-		return theaterShowId;
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
-	public TheaterEntity getTheater() {
-		return theater;
+	public Long getShowId() {
+		return showId;
 	}
 
-	public MovieEntity getMovie() {
-		return movie;
-	}
-
-	public List<ShowScheduleEntity> getShowSchedule() {
+	public TheaterShowScheduleEntity getShowSchedule() {
 		return showSchedule;
 	}
 
-	public void setTheaterShowId(Long theaterShowId) {
-		this.theaterShowId = theaterShowId;
+	public LocalTime getTime() {
+		return time;
 	}
 
-	public void setTheater(TheaterEntity theater) {
-		this.theater = theater;
+	public TheaterScreenEntity getScreen() {
+		return screen;
 	}
 
-	public void setMovie(MovieEntity movie) {
-		this.movie = movie;
+	public List<ShowPricingEntity> getShowPricing() {
+		return showPricing;
 	}
 
-	public void setShowSchedule(List<ShowScheduleEntity> showSchedule) {
+	public Set<ShowSeatAllocationEntity> getShowSeatAllocation() {
+		return showSeatAllocation;
+	}
+
+	public void setShowId(Long showId) {
+		this.showId = showId;
+	}
+
+	public void setShowSchedule(TheaterShowScheduleEntity showSchedule) {
 		this.showSchedule = showSchedule;
 	}
 
+	public void setTime(LocalTime time) {
+		this.time = time;
+	}
+
+	public void setScreen(TheaterScreenEntity screen) {
+		this.screen = screen;
+	}
+
+	public void setShowPricing(List<ShowPricingEntity> showPricing) {
+		this.showPricing = showPricing;
+	}
+
+	public void setShowSeatAllocation(Set<ShowSeatAllocationEntity> showSeatAllocation) {
+		this.showSeatAllocation = showSeatAllocation;
+	}
+
+	
+	
 }

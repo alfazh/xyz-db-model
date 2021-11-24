@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.xyz.dal.entity.theater.TheaterScreenEntity;
 
-public interface ScreenRepository extends JpaRepository<TheaterScreenEntity, Long>{
+public interface TheaterScreenRepository extends JpaRepository<TheaterScreenEntity, Integer>{
 
 }
