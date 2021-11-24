@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -24,9 +25,9 @@ public class ShowSeatAllocationEntity implements Serializable {
 	@Column(name = "show_seat_alloc_id", unique = true, updatable = false, nullable = false)
 	private Long showSeatAllocationId;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "showScheduleId")
-	private ShowScheduleEntity showScheduleEntity;
+	private ShowScheduleEntity showSchedule;
 
 	@Column(name = "row", updatable = false, nullable = false)
 	private String row;
@@ -37,16 +38,21 @@ public class ShowSeatAllocationEntity implements Serializable {
 	@Column(name = "avail", updatable = false, nullable = false)
 	private Boolean available;
 
+	public static ShowSeatAllocationEntity of(ShowScheduleEntity scheduleEntity, String row, int seatNum) {
+		ShowSeatAllocationEntity entity = new ShowSeatAllocationEntity();
+		entity.setShowSchedule(scheduleEntity);
+		entity.setRow(row);
+		entity.setSeatNum(seatNum);
+		entity.setAvailable(Boolean.TRUE);
+		return entity;
+	}
+	
 	public Long getShowSeatAllocationId() {
 		return showSeatAllocationId;
 	}
 
-	public void setShowSeatAllocationId(Long showSeatAllocationId) {
-		this.showSeatAllocationId = showSeatAllocationId;
-	}
-
-	public ShowScheduleEntity getShowScheduleEntity() {
-		return showScheduleEntity;
+	public ShowScheduleEntity getShowSchedule() {
+		return showSchedule;
 	}
 
 	public String getRow() {
@@ -61,8 +67,12 @@ public class ShowSeatAllocationEntity implements Serializable {
 		return available;
 	}
 
-	public void setShowScheduleEntity(ShowScheduleEntity showScheduleEntity) {
-		this.showScheduleEntity = showScheduleEntity;
+	public void setShowSeatAllocationId(Long showSeatAllocationId) {
+		this.showSeatAllocationId = showSeatAllocationId;
+	}
+
+	public void setShowSchedule(ShowScheduleEntity showSchedule) {
+		this.showSchedule = showSchedule;
 	}
 
 	public void setRow(String row) {
@@ -77,4 +87,5 @@ public class ShowSeatAllocationEntity implements Serializable {
 		this.available = available;
 	}
 
+	
 }

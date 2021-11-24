@@ -3,19 +3,27 @@ package com.xyz.dal.entity.show;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import com.xyz.dal.entity.theater.TheaterScreenEntity;
 
 @Entity
-@Table(name = "show_schedule")
+@Table(name = "show_schedule", uniqueConstraints = {
+		@UniqueConstraint(columnNames = { "screenid", "date", "show_time", "theatershowid" }) })
+
 public class ShowScheduleEntity implements Serializable {
 
 	/**
@@ -42,6 +50,12 @@ public class ShowScheduleEntity implements Serializable {
 	@JoinColumn(name = "screenId")
 	private TheaterScreenEntity screen;
 
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "showSchedule", cascade = CascadeType.ALL)
+	private List<ShowPricingEntity> showPricing;
+	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "showSchedule", cascade = CascadeType.ALL)
+	private Set<ShowSeatAllocationEntity> showSeatAllocation;
+	
 	public Long getShowScheduleId() {
 		return showScheduleId;
 	}
@@ -80,6 +94,22 @@ public class ShowScheduleEntity implements Serializable {
 
 	public void setShow(TheaterShowEntity show) {
 		this.show = show;
+	}
+
+	public List<ShowPricingEntity> getShowPricing() {
+		return showPricing;
+	}
+
+	public Set<ShowSeatAllocationEntity> getShowSeatAllocation() {
+		return showSeatAllocation;
+	}
+
+	public void setShowPricing(List<ShowPricingEntity> showPricing) {
+		this.showPricing = showPricing;
+	}
+
+	public void setShowSeatAllocation(Set<ShowSeatAllocationEntity> showSeatAllocation) {
+		this.showSeatAllocation = showSeatAllocation;
 	}
 
 }

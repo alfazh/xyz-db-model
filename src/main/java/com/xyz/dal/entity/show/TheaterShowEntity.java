@@ -13,12 +13,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import com.xyz.dal.entity.movie.MovieEntity;
 import com.xyz.dal.entity.theater.TheaterEntity;
 
 @Entity
-@Table(name = "theater_shows")
+@Table(name = "theater_shows", uniqueConstraints = { @UniqueConstraint(columnNames = { "theaterid", "movieid" }) })
 public class TheaterShowEntity implements Serializable {
 
 	/**
@@ -40,8 +41,8 @@ public class TheaterShowEntity implements Serializable {
 	private MovieEntity movie;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "show", cascade = CascadeType.ALL)
-	private List<ShowScheduleEntity> showScheduleList;
-	
+	private List<ShowScheduleEntity> showSchedule;
+
 	public Long getTheaterShowId() {
 		return theaterShowId;
 	}
@@ -52,6 +53,10 @@ public class TheaterShowEntity implements Serializable {
 
 	public MovieEntity getMovie() {
 		return movie;
+	}
+
+	public List<ShowScheduleEntity> getShowSchedule() {
+		return showSchedule;
 	}
 
 	public void setTheaterShowId(Long theaterShowId) {
@@ -66,12 +71,8 @@ public class TheaterShowEntity implements Serializable {
 		this.movie = movie;
 	}
 
-	public List<ShowScheduleEntity> getShowScheduleList() {
-		return showScheduleList;
-	}
-
-	public void setShowScheduleList(List<ShowScheduleEntity> showScheduleList) {
-		this.showScheduleList = showScheduleList;
+	public void setShowSchedule(List<ShowScheduleEntity> showSchedule) {
+		this.showSchedule = showSchedule;
 	}
 
 }

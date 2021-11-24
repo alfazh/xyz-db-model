@@ -41,14 +41,6 @@ public class TheaterEntity implements Serializable {
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "theater", cascade = CascadeType.ALL)
 	private List<TheaterScreenEntity> screens;
-	
-	public Long getId() {
-		return theaterId;
-	}
-
-	public void setId(Long id) {
-		this.theaterId = id;
-	}
 
 	public String getName() {
 		return name;
@@ -80,6 +72,22 @@ public class TheaterEntity implements Serializable {
 
 	public void setCity(String city) {
 		this.city = city;
+	}
+
+	public Long getTheaterId() {
+		return theaterId;
+	}
+
+	public List<TheaterScreenEntity> getScreens() {
+		return screens;
+	}
+
+	public void setTheaterId(Long theaterId) {
+		this.theaterId = theaterId;
+	}
+
+	public void setScreens(List<TheaterScreenEntity> screens) {
+		this.screens = screens;
 	}
 
 	@Override
