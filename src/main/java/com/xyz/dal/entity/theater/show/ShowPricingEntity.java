@@ -1,7 +1,8 @@
-package com.xyz.dal.entity.show;
+package com.xyz.dal.entity.theater.show;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,13 +28,10 @@ public class ShowPricingEntity implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "showId")
-	private TheaterShowEntity show;
+	private ShowEntity show;
 
 	@Column(name = "seat_class", updatable = false, nullable = false)
 	private String seatClass;
-
-	@Column(name = "seat_row", updatable = false, nullable = false)
-	private String seatRow;
 
 	@Column(name = "price", updatable = false, nullable = false)
 	private BigDecimal price;
@@ -46,16 +44,12 @@ public class ShowPricingEntity implements Serializable {
 		return showPricingId;
 	}
 
-	public TheaterShowEntity getShow() {
+	public ShowEntity getShow() {
 		return show;
 	}
 
 	public String getSeatClass() {
 		return seatClass;
-	}
-
-	public String getSeatRow() {
-		return seatRow;
 	}
 
 	public BigDecimal getPrice() {
@@ -66,7 +60,7 @@ public class ShowPricingEntity implements Serializable {
 		this.showPricingId = showPricingId;
 	}
 
-	public void setShow(TheaterShowEntity show) {
+	public void setShow(ShowEntity show) {
 		this.show = show;
 	}
 
@@ -74,13 +68,8 @@ public class ShowPricingEntity implements Serializable {
 		this.seatClass = seatClass;
 	}
 
-	public void setSeatRow(String seatRow) {
-		this.seatRow = seatRow;
-	}
-
 	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
-	
 	
 }

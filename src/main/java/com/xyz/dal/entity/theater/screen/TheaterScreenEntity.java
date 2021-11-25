@@ -1,6 +1,7 @@
-package com.xyz.dal.entity.theater;
+package com.xyz.dal.entity.theater.screen;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,7 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.xyz.dal.entity.show.ScreenSeatLayoutEntity;
+import com.xyz.dal.entity.theater.TheaterEntity;
 
 @Entity
 @Table(name = "theater_screen")
@@ -21,7 +22,7 @@ public class TheaterScreenEntity {
 
 	@Id
 	@GeneratedValue
-	@Column(name = "screenId", unique = true, updatable = false, nullable = false)
+	@Column(name = "screen_id", unique = true, updatable = false, nullable = false)
 	private Integer screenId;
 
 	@ManyToOne
@@ -32,7 +33,7 @@ public class TheaterScreenEntity {
 	private String name;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "theaterScreen", cascade = CascadeType.ALL)
-	private List<ScreenSeatLayoutEntity> seatLayoutList;
+	private List<TheaterScreenLayoutEntity> seatLayoutList;
 	
 	public Integer getScreenId() {
 		return screenId;
@@ -58,12 +59,30 @@ public class TheaterScreenEntity {
 		this.name = name;
 	}
 
-	public List<ScreenSeatLayoutEntity> getSeatLayoutList() {
+	public List<TheaterScreenLayoutEntity> getSeatLayoutList() {
 		return seatLayoutList;
 	}
 
-	public void setSeatLayoutList(List<ScreenSeatLayoutEntity> seatLayoutList) {
+	public void setSeatLayoutList(List<TheaterScreenLayoutEntity> seatLayoutList) {
 		this.seatLayoutList = seatLayoutList;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(name, screenId, seatLayoutList, theater);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TheaterScreenEntity other = (TheaterScreenEntity) obj;
+		return Objects.equals(name, other.name) && Objects.equals(screenId, other.screenId)
+				&& Objects.equals(seatLayoutList, other.seatLayoutList) && Objects.equals(theater, other.theater);
 	}
 
 }

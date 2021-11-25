@@ -1,6 +1,7 @@
-package com.xyz.dal.entity.show;
+package com.xyz.dal.entity.theater.show;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "show_seat_allocation")
+@Table(name = "theater_show_seat_allocation")
 public class ShowSeatAllocationEntity implements Serializable {
 
 	/**
@@ -27,7 +28,7 @@ public class ShowSeatAllocationEntity implements Serializable {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "showScheduleId")
-	private TheaterShowEntity show;
+	private ShowEntity show;
 
 	@Column(name = "row", updatable = false, nullable = false)
 	private String row;
@@ -38,7 +39,7 @@ public class ShowSeatAllocationEntity implements Serializable {
 	@Column(name = "avail", updatable = false, nullable = false)
 	private Boolean available;
 
-	public static ShowSeatAllocationEntity of(TheaterShowEntity showEntity, String row, int seatNum) {
+	public static ShowSeatAllocationEntity of(ShowEntity showEntity, String row, int seatNum) {
 		ShowSeatAllocationEntity entity = new ShowSeatAllocationEntity();
 		entity.setShow(showEntity);
 		entity.setRow(row);
@@ -55,7 +56,7 @@ public class ShowSeatAllocationEntity implements Serializable {
 		return showSeatAllocationId;
 	}
 
-	public TheaterShowEntity getShow() {
+	public ShowEntity getShow() {
 		return show;
 	}
 
@@ -75,7 +76,7 @@ public class ShowSeatAllocationEntity implements Serializable {
 		this.showSeatAllocationId = showSeatAllocationId;
 	}
 
-	public void setShow(TheaterShowEntity show) {
+	public void setShow(ShowEntity show) {
 		this.show = show;
 	}
 

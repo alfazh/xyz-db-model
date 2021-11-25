@@ -1,9 +1,8 @@
-package com.xyz.dal.entity.show;
+package com.xyz.dal.entity.theater;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,12 +10,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import com.xyz.dal.entity.movie.MovieEntity;
-import com.xyz.dal.entity.theater.TheaterEntity;
 
 @Entity
 @Table(name = "theater_movie_catalog", uniqueConstraints = { @UniqueConstraint(columnNames = { "theaterid", "movieid" }) })
@@ -40,8 +37,8 @@ public class TheaterMovieCatalogEntity implements Serializable {
 	@JoinColumn(name = "movieId")
 	private MovieEntity movie;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "showSchedule", cascade = CascadeType.ALL)
-	private List<TheaterShowEntity> showSchedule;
+//	@OneToMany(fetch = FetchType.EAGER, mappedBy = "showSchedule", cascade = CascadeType.ALL)
+//	private List<ShowEntity> showSchedule;
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
@@ -59,9 +56,9 @@ public class TheaterMovieCatalogEntity implements Serializable {
 		return movie;
 	}
 
-	public List<TheaterShowEntity> getShowSchedule() {
-		return showSchedule;
-	}
+//	public List<ShowEntity> getShowSchedule() {
+//		return showSchedule;
+//	}
 
 	public void setTheaterMovieCatalogId(Long theaterMovieCatalogId) {
 		this.theaterMovieCatalogId = theaterMovieCatalogId;
@@ -75,8 +72,26 @@ public class TheaterMovieCatalogEntity implements Serializable {
 		this.movie = movie;
 	}
 
-	public void setShowSchedule(List<TheaterShowEntity> showSchedule) {
-		this.showSchedule = showSchedule;
+	@Override
+	public int hashCode() {
+		return Objects.hash(movie, theater, theaterMovieCatalogId);
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TheaterMovieCatalogEntity other = (TheaterMovieCatalogEntity) obj;
+		return Objects.equals(movie, other.movie) && Objects.equals(theater, other.theater)
+				&& Objects.equals(theaterMovieCatalogId, other.theaterMovieCatalogId);
+	}
+
+//	public void setShowSchedule(List<ShowEntity> showSchedule) {
+//		this.showSchedule = showSchedule;
+//	}
 
 }

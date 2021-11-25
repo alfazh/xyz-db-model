@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.xyz.dal.entity.theater.screen.TheaterScreenEntity;
+
 @Entity
 @Table(name="theater")
 public class TheaterEntity implements Serializable {

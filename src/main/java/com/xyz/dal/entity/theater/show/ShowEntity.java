@@ -1,8 +1,9 @@
-package com.xyz.dal.entity.show;
+package com.xyz.dal.entity.theater.show;
 
 import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -17,13 +18,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import com.xyz.dal.entity.theater.TheaterScreenEntity;
+import com.xyz.dal.entity.theater.screen.TheaterScreenEntity;
 
 @Entity
 @Table(name = "theater_show", uniqueConstraints = {
 		@UniqueConstraint(columnNames = { "showscheduleid", "screenid", "show_time", }) })
 
-public class TheaterShowEntity implements Serializable {
+public class ShowEntity implements Serializable {
 
 	/**
 	 * 
@@ -37,7 +38,7 @@ public class TheaterShowEntity implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "showScheduleId")
-	private TheaterShowScheduleEntity showSchedule;
+	private ShowScheduleEntity showSchedule;
 
 	@Column(name = "show_time", updatable = false, nullable = false)
 	private LocalTime time;
@@ -46,10 +47,10 @@ public class TheaterShowEntity implements Serializable {
 	@JoinColumn(name = "screenId")
 	private TheaterScreenEntity screen;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "show", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "show", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ShowPricingEntity> showPricing;
-	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "show", cascade = CascadeType.ALL)
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "show", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<ShowSeatAllocationEntity> showSeatAllocation;
 
 	public static long getSerialversionuid() {
@@ -60,7 +61,7 @@ public class TheaterShowEntity implements Serializable {
 		return showId;
 	}
 
-	public TheaterShowScheduleEntity getShowSchedule() {
+	public ShowScheduleEntity getShowSchedule() {
 		return showSchedule;
 	}
 
@@ -84,7 +85,7 @@ public class TheaterShowEntity implements Serializable {
 		this.showId = showId;
 	}
 
-	public void setShowSchedule(TheaterShowScheduleEntity showSchedule) {
+	public void setShowSchedule(ShowScheduleEntity showSchedule) {
 		this.showSchedule = showSchedule;
 	}
 
@@ -104,6 +105,4 @@ public class TheaterShowEntity implements Serializable {
 		this.showSeatAllocation = showSeatAllocation;
 	}
 
-	
-	
 }

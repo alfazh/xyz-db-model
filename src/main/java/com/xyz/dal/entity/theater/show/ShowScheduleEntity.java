@@ -1,7 +1,8 @@
-package com.xyz.dal.entity.show;
+package com.xyz.dal.entity.theater.show;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,9 +16,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import com.xyz.dal.entity.theater.TheaterMovieCatalogEntity;
+
 @Entity
 @Table(name = "theater_show_schedule", uniqueConstraints = { @UniqueConstraint(columnNames = { "date", "theatermoviecatalogid" }) })
-public class TheaterShowScheduleEntity {
+public class ShowScheduleEntity {
 
 	@Id
 	@GeneratedValue
@@ -31,8 +34,8 @@ public class TheaterShowScheduleEntity {
 	@JoinColumn(name = "theaterMovieCatalogId")
 	private TheaterMovieCatalogEntity theaterCatalog;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "showSchedule", cascade = CascadeType.ALL)
-	private List<TheaterShowEntity> showList;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "showSchedule", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<ShowEntity> showList;
 	
 	public Long getShowScheduleId() {
 		return showScheduleId;
@@ -58,13 +61,12 @@ public class TheaterShowScheduleEntity {
 		this.theaterCatalog = theaterCatalog;
 	}
 
-	public List<TheaterShowEntity> getShowList() {
+	public List<ShowEntity> getShowList() {
 		return showList;
 	}
 
-	public void setShowList(List<TheaterShowEntity> showList) {
+	public void setShowList(List<ShowEntity> showList) {
 		this.showList = showList;
 	}
-	
 	
 }

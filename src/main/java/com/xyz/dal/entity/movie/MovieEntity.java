@@ -2,6 +2,7 @@ package com.xyz.dal.entity.movie;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -122,6 +123,27 @@ public class MovieEntity implements Serializable {
 
 	public void setMovieFormat(MovieFormat movieformat) {
 		this.movieFormat = movieformat;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(description, genre, imageLink, language, movieFormat, movieId, name, releaseDate, runTime);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		MovieEntity other = (MovieEntity) obj;
+		return Objects.equals(description, other.description) && genre == other.genre
+				&& Objects.equals(imageLink, other.imageLink) && language == other.language
+				&& movieFormat == other.movieFormat && Objects.equals(movieId, other.movieId)
+				&& Objects.equals(name, other.name) && Objects.equals(releaseDate, other.releaseDate)
+				&& runTime == other.runTime;
 	}
 
 	@Override
