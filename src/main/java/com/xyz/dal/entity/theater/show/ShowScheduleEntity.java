@@ -2,7 +2,6 @@ package com.xyz.dal.entity.theater.show;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;

@@ -1,4 +1,4 @@
-package com.xyz.dal.repository;
+package com.xyz.dal.repository.show;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

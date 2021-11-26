@@ -2,7 +2,7 @@ package com.xyz.dal.entity.movie;
 
 public enum MovieFormat {
 
-	TWO_D("2D"), THREE_D("3D"), IMAX_FOUR_D("IMAX 4D");
+	F_2D("2D"), F_3D("3D"), F_IMAX_3D("IMAX 3D");
 
 	String formatString;
 

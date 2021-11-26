@@ -1,4 +1,4 @@
-package com.xyz.dal.repository;
+package com.xyz.dal.repository.show;
 
 import java.time.LocalDate;
 import java.util.List;

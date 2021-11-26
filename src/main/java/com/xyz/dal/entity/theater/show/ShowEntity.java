@@ -3,7 +3,6 @@ package com.xyz.dal.entity.theater.show;
 import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;

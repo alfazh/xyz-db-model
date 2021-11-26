@@ -1,7 +1,5 @@
 package com.xyz.dal.entity.theater.screen;
 
-import java.util.Objects;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,10 +7,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+import com.xyz.dal.entity.theater.TheaterEntity;
 
 @Entity
-@Table(name = "theater_screen_layout")
-public class TheaterScreenLayoutEntity {
+@Table(name = "theater_screen_seat_row", uniqueConstraints = { @UniqueConstraint(columnNames = { "theaterid", "screenid","seat_class","row_name" }) })
+public class ScreenSeatRowEntity {
 
 	@Id
 	@GeneratedValue
@@ -23,10 +24,14 @@ public class TheaterScreenLayoutEntity {
 	@JoinColumn(name = "screenId")
 	private TheaterScreenEntity theaterScreen;
 
-	@Column(name = "seatClass", updatable = true, nullable = false)
+	@ManyToOne
+	@JoinColumn(name = "theaterId", nullable = false)
+	private TheaterEntity theater;
+	
+	@Column(name = "seat_class", updatable = true, nullable = false)
 	private String seatClass;
 
-	@Column(name = "rowName", unique = true, updatable = false, nullable = false)
+	@Column(name = "row_name", unique = false, updatable = false, nullable = false)
 	private String rowName;
 
 	@Column(name = "num_seats", updatable = true, nullable = false)
@@ -72,23 +77,13 @@ public class TheaterScreenLayoutEntity {
 		this.seatClass = seatClass;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(layoutId, numSeats, rowName, seatClass, theaterScreen);
+	public TheaterEntity getTheater() {
+		return theater;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		TheaterScreenLayoutEntity other = (TheaterScreenLayoutEntity) obj;
-		return Objects.equals(layoutId, other.layoutId) && numSeats == other.numSeats
-				&& Objects.equals(rowName, other.rowName) && Objects.equals(seatClass, other.seatClass)
-				&& Objects.equals(theaterScreen, other.theaterScreen);
+	public void setTheater(TheaterEntity theater) {
+		this.theater = theater;
 	}
-
+	
+	
 }

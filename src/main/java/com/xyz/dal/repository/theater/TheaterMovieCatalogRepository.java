@@ -1,4 +1,4 @@
-package com.xyz.dal.repository;
+package com.xyz.dal.repository.theater;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
